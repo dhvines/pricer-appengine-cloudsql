@@ -125,10 +125,10 @@ In the `pom.xml`, add the App Engine Maven plugin and specify a port for local t
 	when you run you app in the local development server
     -->
     <configuration>
-		<enableJarClasses>false</enableJarClasses>
-		<port>8181</port>
-		<address>0.0.0.0</address>
-	</configuration>
+        <enableJarClasses>false</enableJarClasses>
+        <port>8181</port>
+        <address>0.0.0.0</address>
+    </configuration>
 </plugin>
 ```
 
@@ -173,21 +173,21 @@ This configuration is required to build the Pricer Spring Boot application; othe
     <!-- Add Spring Cloud GCP Dependency BOM -->
     <dependencyManagement>
         <dependencies>
-          	<dependency>
-    	      	<groupId>org.springframework.cloud</groupId>
+            <dependency>
+    	        <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-gcp-dependencies</artifactId>
                 <version>1.0.0.RC1</version>
      	     	<type>pom</type>
-        	  	<scope>import</scope>
-          	</dependency>
+                <scope>import</scope>
+            </dependency>
       	</dependencies>
     </dependencyManagement>
     ...
     </dependencies>
     	<!-- Add CloudSQL Starter for MySQL -->
     	<dependency>
-    		<groupId>org.springframework.cloud</groupId>
-        	<artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
     	</dependency>
     	<!-- Add MySQL JDBC Driver for Java -->
         <dependency>
@@ -201,9 +201,9 @@ This configuration is required to build the Pricer Spring Boot application; othe
     <repositories>
         <!-- Use Spring Milestone Repository - spring-cloud-gcp-started-sql-myql is not found in Maven central -->
     	<repository>
-        	<id>repository.spring.milestone</id>
-        	<name>Spring Milestones Repository</name>
-        	<url>http://repo.spring.io/milestone</url>
+            <id>repository.spring.milestone</id>
+            <name>Spring Milestones Repository</name>
+            <url>http://repo.spring.io/milestone</url>
       	</repository>
     </repositories>
 </project>
