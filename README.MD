@@ -51,7 +51,9 @@ This sample shows you how to convert Pricer into Google App Engine Standard and 
 
 `mvn appengine:run`
 
-To use vist: http://localhost:8181/
+To access the Pricer application, `http://localhost:8181`
+
+To access the Swagger UI, `http://localhost:8181/swagger-ui.html`
 
 ### Deploy to Google App Engine 
 
@@ -59,7 +61,9 @@ To use vist: http://localhost:8181/
 
 `gcloud app describe | grep id`    ## Record YOUR_PROJECT_ID
 
-To use vist:  https://YOUR-PROJECT-ID.appspot.com
+To access the Pricer application, `https://YOUR-PROJECT-ID.appspot.com`
+
+To access the Swagger UI, `https://YOUR-PROJECT-ID.appspot.com/swagger-ui.html`
 
 For additional information, see
 [Java App Engine](https://developers.google.com/appengine/docs/java/overview) documentation.
