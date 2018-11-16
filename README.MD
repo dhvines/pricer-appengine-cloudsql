@@ -175,11 +175,11 @@ This configuration is required to build the Pricer Spring Boot application; othe
         <dependencies>
           	<dependency>
     	      	<groupId>org.springframework.cloud</groupId>
-        	  	<artifactId>spring-cloud-gcp-dependencies</artifactId>
-          		<version>1.0.0.RC1</version>
+                <artifactId>spring-cloud-gcp-dependencies</artifactId>
+                <version>1.0.0.RC1</version>
      	     	<type>pom</type>
         	  	<scope>import</scope>
-          		</dependency>
+          	</dependency>
       	</dependencies>
     </dependencyManagement>
     ...
@@ -191,21 +191,21 @@ This configuration is required to build the Pricer Spring Boot application; othe
     	</dependency>
     	<!-- Add MySQL JDBC Driver for Java -->
         <dependency>
-			<groupId>mysql</groupId>
-      		<artifactId>mysql-connector-java</artifactId>
-      		<scope>runtime</scope>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
     	</dependency>
       	...
     </dependencies>
     ...
     <repositories>
-		<!-- Use Spring Milestone Repository - spring-cloud-gcp-started-sql-myql is not found in Maven central -->
+        <!-- Use Spring Milestone Repository - spring-cloud-gcp-started-sql-myql is not found in Maven central -->
     	<repository>
         	<id>repository.spring.milestone</id>
         	<name>Spring Milestones Repository</name>
         	<url>http://repo.spring.io/milestone</url>
       	</repository>
-  	</repositories>
+    </repositories>
 </project>
 ```
 
