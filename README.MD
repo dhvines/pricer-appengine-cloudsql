@@ -205,7 +205,7 @@ This configuration is required to build the Pricer Spring Boot application; othe
 
 ### Update Application Properties
 
-Replace the original Spring configuration with the following properties
+In `application.properties`, replace the original configuration with the following properties
 
 ```yml
 ## Logging settings
