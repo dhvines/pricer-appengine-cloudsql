@@ -10,8 +10,8 @@ Pricer is a generic Spring Boot Application containing:
    
 
 
-Pricer with Cloud SQL on Google App Engine Standard
-===================================================
+Pricer on Google App Engine and Cloud SQL
+=========================================
 
 This sample shows you how to convert Pricer into Google App Engine Standard and Cloud SQL for MySQL.
 
