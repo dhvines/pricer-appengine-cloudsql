@@ -96,10 +96,10 @@ exclude Tomcat from the runtime using <scope>provided<scope>
 
 ```xml
 <dependency>
-       <groupId>org.springframework.boot</groupId>
-       <artifactId>spring-boot-starter-tomcat</artifactId>
-       <scope>provided</scope>
-  	</dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
 ```
 
 
