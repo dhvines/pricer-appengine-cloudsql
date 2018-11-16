@@ -57,6 +57,8 @@ To use vist: http://localhost:8181/
 
 `mvn appengine:deploy`
 
+`gcloud app describe | grep id`    ## Record YOUR_PROJECT_ID
+
 To use vist:  https://YOUR-PROJECT-ID.appspot.com
 
 For additional information, see
