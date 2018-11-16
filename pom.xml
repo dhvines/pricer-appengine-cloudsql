@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+  
+    <groupId>hellocloud</groupId>
+    <artifactId>pricer</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    
+    <!-- You must use WAR packaging to deploy into Google App Engine Standard -->
+    <packaging>war</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.0.RELEASE</version>
+    </parent>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <springfox-swagger-version>2.6.1</springfox-swagger-version>
+    </properties>
+
+     <!-- Add Spring Cloud GCP Dependency BOM -->
+    <dependencyManagement>
+        <dependencies>
+          <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-gcp-dependencies</artifactId>
+          <version>1.0.0.RC1</version>
+          <type>pom</type>
+          <scope>import</scope>
+          </dependency>
+      </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+    
+      
+      <!--  Add CloudSQL Starter for MySQL -->
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-gcp-starter-sql-mysql</artifactId>
+      </dependency>
+      
+      <!-- Mark Tomcat as being provided by the Google App Engine -->
+  	<dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-tomcat</artifactId>
+       <scope>provided</scope>
+  	</dependency>
+    
+        <!-- spring dependencies -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons.logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+                
+        <!-- spring boot dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- swagger dependencies -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger-version}</version>
+        </dependency>
+        
+
+        <!-- jackson dependencies -->        
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        
+        <!-- database dependencies - uses H2 by default -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        
+        <!-- Add MySQL connector for Java -->
+        <dependency>
+			<groupId>mysql</groupId>
+      		<artifactId>mysql-connector-java</artifactId>
+      		<scope>runtime</scope>
+    	</dependency>
+        
+        <!-- logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+
+		<!-- junit dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+        	
+		    <!-- Don't use system class loader or else maven-surefire-plugin fails --> 
+		    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
+                </configuration>
+            </plugin>
+            
+    
+    		<!-- Add appengine-maven-plugin -->
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>1.3.1</version>
+                <!--
+		      	When you run your app in the local development server, the default port is 8080.
+      			If you get a port binding exception, then configure a different default. Notice
+      			that the <port> sets the port here to 8181 and the address 0.0.0.0 is specified,
+				which means the development server will listen for requests coming in from local 
+				network. Note the server.port setting in SpringBoot configuration has no bearing 
+				when you run you app in the local development server
+                -->
+                <configuration>
+         			<enableJarClasses>false</enableJarClasses>
+         			<port>8181</port>
+         			<address>0.0.0.0</address>
+     			</configuration>
+            </plugin>
+            
+        
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/wro</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/wro</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>ro.isdc.wro4j</groupId>
+                <artifactId>wro4j-maven-plugin</artifactId>
+                <version>1.8.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory
+                    </wroManagerFactory>
+                    <cssDestinationFolder>${project.build.directory}/generated-resources/static/css
+                    </cssDestinationFolder>
+                    <jsDestinationFolder>${project.build.directory}/generated-resources/static/js</jsDestinationFolder>
+                    <wroFile>${project.build.directory}/wro/wro.xml</wroFile>
+                    <extraConfigFile>${basedir}/src/main/wro/wro.properties</extraConfigFile>
+                    <contextFolder>${basedir}/src/main/wro</contextFolder>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>jquery</artifactId>
+                        <version>2.1.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>bootstrap</artifactId>
+                        <version>3.2.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>angular-ui-bootstrap</artifactId>
+                        <version>0.13.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.webjars</groupId>
+                        <artifactId>angularjs</artifactId>
+                        <version>1.3.8</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <repositories>
+	<!-- Use Spring Milestone Repository - spring-cloud-gcp-started-sql-myql is not found in Maven central -->
+      <repository>
+        <id>repository.spring.milestone</id>
+        <name>Spring Milestones Repository</name>
+        <url>http://repo.spring.io/milestone</url>
+      </repository>
+  </repositories>
+    
+</project>
