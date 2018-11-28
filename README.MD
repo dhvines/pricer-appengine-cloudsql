@@ -33,18 +33,35 @@ This sample shows you how to convert Pricer into Google App Engine Standard and 
 
     `gcloud init`
 
+* Install the App Engine component as part of the Cloud SDK
+
+	`gcloud components install app-engine-java`
+	
 * Create an App Engine Standard application within the current Google Cloud Project
 
     `gcloud app create`
     
-* Create a Cloud SQL (MySQL) instance
+* Create a Cloud SQL (MySQL) instance named "pricer"
 
 	`gcloud sql instances create pricer`
 
-* Create a Cloud SQL (MySQL) database
+* Set a <password> for the root user of the MySQL instance named "pricer"	
+
+	`gcloud sql users set-password root --host % --instance pricer --password <password>`
+	
+* Obtain the <connection name> for the MySQL instance, it is included in the output of the following command
+
+  `gcloud sql instances describe pricer`
+
+* Create a Cloud SQL (MySQL) database named "pricer"
 
 	`gcloud sql databases create pricer --instance pricer`
-	
+
+* Edit the application.properties file in ..\pricer-appengine-cloudsql\src\main\resources, and update with your <connection name> and <password>
+
+	`spring.cloud.gcp.sql.instance-connection-name=<connection name>`
+	`spring.datasource.password=<password>`
+
 ## Build, Deploy, and Run
 
 ### Run on Local Development Server
@@ -54,6 +71,16 @@ This sample shows you how to convert Pricer into Google App Engine Standard and 
 To access the Pricer application, `http://localhost:8181`
 
 To access the Swagger UI, `http://localhost:8181/swagger-ui.html`
+
+
+* Note: If you get the following failure messages in the console when attempting to deploy  
+
+	`[INFO] GCLOUD: WARNING: Failed to detect whether we are running on Google Compute Engine`
+	`[INFO] GCLOUD: java.net.SocketException: Network is unreachable: connect`
+
+  Then you can run the following command to re-login
+
+  `gcloud auth application-default login`
 
 ### Deploy to Google App Engine 
 
