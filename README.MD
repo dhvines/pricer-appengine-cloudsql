@@ -45,11 +45,11 @@ This sample shows you how to convert Pricer into Google App Engine Standard and 
 
 	`gcloud sql instances create pricer`
 
-* Set a <password> for the root user of the MySQL instance named "pricer"	
+* Set a password for the root user of the MySQL instance named "pricer"	
 
 	`gcloud sql users set-password root --host % --instance pricer --password <password>`
 	
-* Obtain the <connection name> for the MySQL instance, it is included in the output of the following command
+* Obtain the "connection name" for the MySQL instance, it is included in the output of the following command
 
   `gcloud sql instances describe pricer`
 
@@ -57,7 +57,7 @@ This sample shows you how to convert Pricer into Google App Engine Standard and 
 
 	`gcloud sql databases create pricer --instance pricer`
 
-* Edit the application.properties file in ..\pricer-appengine-cloudsql\src\main\resources, and update with your <connection name> and <password>
+* Edit the application.properties file in ..\pricer-appengine-cloudsql\src\main\resources, and update with your "connection name" and "password"
 
 	`spring.cloud.gcp.sql.instance-connection-name=<connection name>`
 	`spring.datasource.password=<password>`
